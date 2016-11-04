@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+wget -qO- "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.22.1&source=github-rel" | tar xvz -C ~/bin
+
+mkdir ~/.m2/ && echo $MV_SETTINGS > ~/.m2/settings.xml 
+mkdir ~/.cf && echo $CF_AUTH_CONFIG > ~/.cf/config.json
+
+scripts/pullSubModules.sh

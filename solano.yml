@@ -1,0 +1,81 @@
+plan:
+  - validate
+  - dataingestion-service
+  - data-seed-service
+  - machinedata-simulator
+  - predix-websocket-server
+  - rmd-datasource
+  - rmd-ref-app-ui
+  - rmd-deploy
+
+hooks:
+  pre_setup: bin/pre_setup
+
+tool_config:
+  git:
+    version: 1.8.5.5
+
+phantomjs:
+  version: '1.9.7'
+
+nodejs:
+  version: '6.2.1'
+
+java:
+  java_version: java-8-openjdk
+  maven_version: '3.3.9'
+
+profiles:
+  validate:
+    tests:
+      - python scripts/installRefApp.py -i alazarchuk --only=validate
+
+  dataingestion-service:
+    tests:
+      - type: junit
+        command: cd dataingestion-service && mvn test
+
+  data-seed-service:
+    tests:
+      - type: junit
+        command: cd data-seed-service && mvn test
+
+  machinedata-simulator:
+    tests:
+      - type: junit
+        command: cd machinedata-simulator && mvn test
+
+  predix-websocket-server:
+    tests:
+      - type: junit
+        command: cd predix-websocket-server && mvn test
+
+  rmd-datasource:
+    tests:
+      - type: junit
+        command: cd rmd-datasource && mvn test
+
+  rmd-ref-app-ui:
+    hooks:
+      pre_setup: |
+        set -e
+        bin/pre_setup
+        cd rmd-ref-app-ui
+        export PATH=$PATH:`pwd`/node_modules/.bin/
+        npm install
+        npm install bower
+        npm install grunt-cli
+        bower install
+    tests:
+      - cd rmd-ref-app-ui && npm test || exit 0
+
+  rmd-deploy:
+    hooks:
+      pre_setup: |
+        set -e
+        export PATH=$PATH:`pwd`/node_modules/.bin/
+        bin/pre_setup
+        npm install bower
+        npm install grunt-cli
+    tests:
+      - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i alazarchuk

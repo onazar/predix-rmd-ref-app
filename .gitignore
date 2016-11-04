@@ -15,3 +15,4 @@ scripts/mvn_settings_temp.xml
 json_output.txt
 .gitmodules.bak
 .gitmodules.script
+.solano*
