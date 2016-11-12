@@ -1,40 +1,40 @@
 [submodule "predix-scripts"]
 	path = predix-scripts
-	url = git@github.com:solanolabs/predix-scripts.git
+	url = https://github.com/solanolabs/predix-scripts.git
 	branch = solano
 [submodule "predix-sdks"]
 	path = predix-sdks
-	url = git@github.com:solanolabs/predix-sdks.git
+	url = https://github.com/solanolabs/predix-sdks.git
 	branch = solano
 [submodule "Predix-HelloWorld-WebApp"]
 	path = Predix-HelloWorld-WebApp
-	url = git@github.com:solanolabs/Predix-HelloWorld-WebApp.git
+	url = https://github.com/solanolabs/Predix-HelloWorld-WebApp.git
 	branch = solano
 [submodule "data-seed-service"]
 	path = data-seed-service
-	url = git@github.com:solanolabs/data-seed-service.git
+	url = https://github.com/solanolabs/data-seed-service.git
 	branch = solano
 [submodule "dataingestion-service"]
 	path = dataingestion-service
-	url = git@github.com:solanolabs/dataingestion-service.git
+	url = https://github.com/solanolabs/dataingestion-service.git
 	branch = solano
 [submodule "machinedata-simulator"]
 	path = machinedata-simulator
-	url = git@github.com:solanolabs/machinedata-simulator.git
+	url = https://github.com/solanolabs/machinedata-simulator.git
 	branch = solano
 [submodule "rmd-datasource"]
 	path = rmd-datasource
-	url = git@github.com:solanolabs/rmd-datasource.git
+	url = https://github.com/solanolabs/rmd-datasource.git
 	branch = solano
 [submodule "rmd-ref-app-ui"]
 	path = rmd-ref-app-ui
-	url = git@github.com:solanolabs/rmd-ref-app-ui.git
+	url = https://github.com/solanolabs/rmd-ref-app-ui.git
 	branch = solano
 [submodule "predix-websocket-server"]
 	path = predix-websocket-server
-	url = git@github.com:solanolabs/predix-websocket-server.git
+	url = https://github.com/solanolabs/predix-websocket-server.git
 	branch = solano
 [submodule "predix-rmd-analytics-ref-app"]
 	path = predix-rmd-analytics-ref-app
-	url = git@github.com:solanolabs/predix-rmd-analytics-ref-app.git
+	url = https://github.com/solanolabs/predix-rmd-analytics-ref-app.git
 	branch = solano
