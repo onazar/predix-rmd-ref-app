@@ -40,23 +40,23 @@ profiles:
       - type: junit
         command: cd dataingestion-service && mvn surefire:test -Dtest=\*
         report_files:
-          - "target/failsafe-reports/*.xml"
+          - "dataingestion-service/target/*-reports/*.xml"
       - type: junit
         command: cd data-seed-service && mvn surefire:test -Dtest=\*
         report_files:
-          - "target/failsafe-reports/*.xml"
+          - "data-seed-service/target/*-reports/*.xml"
       - type: junit
         command: cd machinedata-simulator && mvn surefire:test -Dtest=\*
         report_files:
-          - "target/failsafe-reports/*.xml"
+          - "machinedata-simulator/target/*-reports/*.xml"
       - type: junit
         command: cd predix-websocket-server && mvn surefire:test -Dtest=\*
         report_files:
-          - "target/failsafe-reports/*.xml"
+          - "predix-websocket-server/target/*-reports/*.xml"
       - type: junit
         command: cd rmd-datasource && mvn surefire:test -Dtest=\*
         report_files:
-          - "target/failsafe-reports/*.xml"
+          - "rmd-datasource/target/*-reports/*.xml"
       - cd rmd-ref-app-ui && npm test || exit 0
 
   deploy:
