@@ -28,7 +28,7 @@ java:
 profiles:
   validate:
     tests:
-      - python scripts/installRefApp.py -i alazarchuk --only=validate
+      - python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER} --only=validate
 
   dataingestion-service:
     tests:
@@ -78,4 +78,4 @@ profiles:
         npm install bower
         npm install grunt-cli
     tests:
-      - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i alazarchuk
+      - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER}
