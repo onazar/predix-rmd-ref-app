@@ -38,23 +38,23 @@ profiles:
         bower install
     tests:
       - type: junit
-        command: cd dataingestion-service && mvn test
+        command: cd dataingestion-service && mvn surefire:test -Dtest=\*
         report_files:
           - "target/failsafe-reports/*.xml"
       - type: junit
-        command: cd data-seed-service && mvn test
+        command: cd data-seed-service && mvn surefire:test -Dtest=\*
         report_files:
           - "target/failsafe-reports/*.xml"
       - type: junit
-        command: cd machinedata-simulator && mvn test
+        command: cd machinedata-simulator && mvn surefire:test -Dtest=\*
         report_files:
           - "target/failsafe-reports/*.xml"
       - type: junit
-        command: cd predix-websocket-server && mvn test
+        command: cd predix-websocket-server && mvn surefire:test -Dtest=\*
         report_files:
           - "target/failsafe-reports/*.xml"
       - type: junit
-        command: cd rmd-datasource && mvn test
+        command: cd rmd-datasource && mvn surefire:test -Dtest=\*
         report_files:
           - "target/failsafe-reports/*.xml"
       - cd rmd-ref-app-ui && npm test || exit 0
