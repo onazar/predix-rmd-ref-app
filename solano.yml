@@ -20,10 +20,6 @@ java:
   java_version: java-8-openjdk
   maven_version: '3.3.9'
 
-# This outputs the JUnit test results
-report_files:
-  - "target/surefire-reports/*.xml"
-
 profiles:
   validate:
     tests:
@@ -43,14 +39,24 @@ profiles:
     tests:
       - type: junit
         command: cd dataingestion-service && mvn test
+        report_files:
+          - "target/failsafe-reports/*.xml"
       - type: junit
         command: cd data-seed-service && mvn test
+        report_files:
+          - "target/failsafe-reports/*.xml"
       - type: junit
         command: cd machinedata-simulator && mvn test
+        report_files:
+          - "target/failsafe-reports/*.xml"
       - type: junit
         command: cd predix-websocket-server && mvn test
+        report_files:
+          - "target/failsafe-reports/*.xml"
       - type: junit
         command: cd rmd-datasource && mvn test
+        report_files:
+          - "target/failsafe-reports/*.xml"
       - cd rmd-ref-app-ui && npm test || exit 0
 
   deploy:
