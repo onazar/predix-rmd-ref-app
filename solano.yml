@@ -1,7 +1,7 @@
 plan:
-  - validate
   - integrate
   - deploy
+  - validate
 
 hooks:
   pre_setup: bin/pre_setup
