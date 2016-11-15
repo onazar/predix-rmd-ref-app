@@ -23,7 +23,6 @@ java:
 profiles:
   validate:
     tests:
-      - /usr/bin/env
       - python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER} --only=validate
 
   integrate:
@@ -39,11 +38,11 @@ profiles:
         bower install
     tests:
       - type: junit
-        command: cd dataingestion-service && mvn verify
+        command: cd dataingestion-service && mvn test
         report_files:
           - "dataingestion-service/target/*-reports/*.xml"
       - type: junit
-        command: cd data-seed-service && mvn verify
+        command: cd data-seed-service && mvn test
         report_files:
           - "data-seed-service/target/*-reports/*.xml"
       - type: junit
@@ -55,7 +54,7 @@ profiles:
         report_files:
           - "predix-websocket-server/target/*-reports/*.xml"
       - type: junit
-        command: cd rmd-datasource && mvn verify
+        command: cd rmd-datasource && mvn test
         report_files:
           - "rmd-datasource/target/*-reports/*.xml"
       - cd rmd-ref-app-ui && npm test || exit 0
