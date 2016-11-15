@@ -23,6 +23,7 @@ java:
 profiles:
   validate:
     tests:
+      - /usr/bin/env
       - python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER} --only=validate
 
   integrate:
