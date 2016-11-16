@@ -27,6 +27,9 @@ java:
   java_version: java-8-openjdk
   maven_version: '3.3.9'
 
+environment:
+  HELLOWORLD_APP_NAME: "u252-Predix-HelloWorld-WebApp"
+
 profiles:
   validate:
     tests:
@@ -79,9 +82,15 @@ profiles:
 
   integrate:
     hooks:
-      pre_setup: "echo 'Try running live integration tests'"
+      pre_setup: |
+        bin/pre_setup
+        gem install java-properties
+        bin/generate_properties
     tests:
-      - /bin/true
+      - type: junit
+        command: cd rmd-datasource && mvn verify
+        report_files:
+          - "rmd-datasource/target/*-reports/*.xml"
 
   deploy-production:
     hooks:

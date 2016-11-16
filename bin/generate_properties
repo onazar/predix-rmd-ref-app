@@ -1,0 +1,49 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'java-properties'
+require 'json'
+require 'pp'
+
+component='rmd-datasource'
+
+file = "/tmp/q.json"
+
+
+apps = `cf curl /v2/apps`
+apps = JSON.parse(apps)
+
+this_app = apps['resources'].first { |x|
+  x['entity']['name'] == ENV['HELLOWORLD_APP_NAME']
+}
+guid = this_app['metadata']['guid']
+
+data = JSON.parse(`cf curl /v2/apps/#{guid}/env`)
+
+template = "#{component}/config/application-template.properties"
+template = JavaProperties.load(template)
+
+properties = template.dup
+uaa = data["system_env_json"]["VCAP_SERVICES"]["predix-uaa"][0]
+properties[:"predix.oauth.restHost"] = uaa["credentials"]["uri"][8..-1]
+properties[:"predix.oauth.clientIdEncode"] = true
+properties[:"predix.oauth.clientId"] = "app_client_id:secret"
+properties[:"predix.asset.restHost"] = nil
+properties[:"predix.asset.zoneid"] = nil
+
+assets = data['system_env_json']['VCAP_SERVICES']['predix-asset'][0]
+
+properties[:"predix.asset.restHost"] = assets['credentials']['uri'][8..-1]
+properties[:"predix.asset.zoneid"] = assets['credentials']['zone']['http-header-value']
+
+timeseries = data["system_env_json"]["VCAP_SERVICES"]["predix-timeseries"][0]["credentials"]
+properties[:"predix.timeseries.ingestUri"] = timeseries["ingest"]["uri"]
+properties[:"predix.timeseries.ingestionUsername"] = "app_client_id"
+properties[:"predix.timeseries.ingestionPassword"] = "secret"
+properties[:"predix.timeseries.queryUri"] = timeseries["query"]["uri"]
+properties[:"predix.timeseries.baseUrl"] = timeseries["query"]["uri"].gsub(/\/v1\/datapoints/, '')
+properties[:"predix.timeseries.zoneid"] = timeseries["query"]["zone-http-header-value"]
+properties[:trustedIssuerIdsRegexPattern] ="^https://#{properties[:"predix.oauth.restHost"]}/oauth/token$"
+
+JavaProperties.write(properties, "#{component}/config/application.properties")
+
