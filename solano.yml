@@ -1,7 +1,12 @@
-plan:
-  - integrate
-  - deploy
-  - validate
+pipeline:
+  functional:
+    deploy-integrate:
+      - validate
+      - integrate
+edges:
+  - validate: deploy-production
+  - integrate: deploy-production
+
 
 hooks:
   pre_setup: bin/pre_setup
@@ -28,7 +33,7 @@ profiles:
     tests:
       - python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER} --only=validate
 
-  integrate:
+  functional:
     hooks:
       pre_setup: |
         set -e
@@ -62,7 +67,7 @@ profiles:
           - "rmd-datasource/target/*-reports/*.xml"
       - cd rmd-ref-app-ui && npm test || exit 0
 
-  deploy:
+  deploy-integrate:
     hooks:
       pre_setup: |
         set -e
@@ -72,3 +77,16 @@ profiles:
         npm install grunt-cli
     tests:
       - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER}
+
+  integrate:
+    hooks:
+      pre_setup: "echo 'Try running live integration tests'"
+    tests:
+      - /bin/true
+
+  deploy-production:
+    hooks:
+      pre_setup: "echo 'Try deploying to production namespace'"
+    tests:
+      - /bin/true
+
