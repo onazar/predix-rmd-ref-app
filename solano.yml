@@ -32,6 +32,8 @@ environment:
 
 profiles:
   validate:
+    test_exclude_pattern:
+      - spec/**_spec.rb
     tests:
       - python scripts/installRefApp.py -i "${PREDIX_PREFIX:-$USER}jm" --only=validate
 
@@ -46,6 +48,8 @@ profiles:
         npm install bower
         npm install grunt-cli
         bower install
+    test_exclude_pattern:
+      - spec/**_spec.rb
     tests:
       - type: junit
         command: cd dataingestion-service && mvn test
@@ -77,6 +81,8 @@ profiles:
         bin/pre_setup
         npm install bower
         npm install grunt-cli
+    test_exclude_pattern:
+      - spec/**_spec.rb
     tests:
       - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i "${PREDIX_PREFIX:-$USER}jm"
 
@@ -91,6 +97,12 @@ profiles:
         command: cd rmd-datasource && mvn verify
         report_files:
           - "rmd-datasource/target/*-reports/*.xml"
+      - CF_UI_PREFIX=${PREDIX_PREFIX:-$USER}jm bundle exec rspec spec/predix_rmd_ref_app_spec.rb
+    test_exclude_pattern:
+      - spec/**_spec.rb
+    environment:
+      BROWSER: chrome
+      CONFIRM_POP_UP: true
 
   deploy-production:
     hooks:
@@ -100,6 +112,8 @@ profiles:
         bin/pre_setup
         npm install bower
         npm install grunt-cli
+    test_exclude_pattern:
+      - spec/**_spec.rb
     tests:
       - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i ${PREDIX_PREFIX:-production}
 
