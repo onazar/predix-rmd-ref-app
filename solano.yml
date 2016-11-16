@@ -13,6 +13,9 @@ tool_config:
 phantomjs:
   version: '1.9.7'
 
+ruby:
+  ruby_version: "2.3.1"
+
 nodejs:
   version: '6.2.1'
 
