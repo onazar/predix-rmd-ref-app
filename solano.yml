@@ -94,7 +94,12 @@ profiles:
 
   deploy-production:
     hooks:
-      pre_setup: "echo 'Try deploying to production namespace'"
+      pre_setup: |
+        set -e
+        export PATH=$PATH:`pwd`/node_modules/.bin/
+        bin/pre_setup
+        npm install bower
+        npm install grunt-cli
     tests:
-      - /bin/true
+      - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i ${PREDIX_PREFIX:-production}
 
