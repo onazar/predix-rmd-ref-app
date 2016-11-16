@@ -1,10 +1,9 @@
 pipeline:
   functional:
     deploy-integrate:
-      - validate
+      - validate: deploy-production
       - integrate
 edges:
-  - validate: deploy-production
   - integrate: deploy-production
 
 
