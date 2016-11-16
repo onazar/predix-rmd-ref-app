@@ -28,12 +28,12 @@ java:
   maven_version: '3.3.9'
 
 environment:
-  HELLOWORLD_APP_NAME: "u252-Predix-HelloWorld-WebApp"
+  HELLOWORLD_APP_NAME: "u252jm-Predix-HelloWorld-WebApp"
 
 profiles:
   validate:
     tests:
-      - python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER} --only=validate
+      - python scripts/installRefApp.py -i "${PREDIX_PREFIX:-$USER}jm" --only=validate
 
   functional:
     hooks:
@@ -78,7 +78,7 @@ profiles:
         npm install bower
         npm install grunt-cli
     tests:
-      - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i ${PREDIX_PREFIX:-$USER}
+      - PATH=$PATH:`pwd`/node_modules/.bin/ python scripts/installRefApp.py -i "${PREDIX_PREFIX:-$USER}jm"
 
   integrate:
     hooks:
